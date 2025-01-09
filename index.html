@@ -1,130 +1,76 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>程式碼編輯器</title>
+    <title>Matrix Code Rain</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
             margin: 0;
-            background-color: #9cf6c7; /* 使用指定背景色 */
-            color: #69350F; /* 頁面文字顏色 */
+            background: black;
+            overflow: hidden;
+            color: white;
+            font-family: monospace;
         }
-        .container {
-            display: flex;
-            flex: 1;
-        }
-        #editor {
-            width: 50%; /* 左側區域 */
-            padding: 10px;
-            box-sizing: border-box;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
-            border-right: 2px solid #ccc; /* 左邊區域的分隔線 */
-        }
-        #output {
-            width: 50%; /* 右側區域 */
-            padding: 10px;
-            box-sizing: border-box;
-            height: 100%;
-            color: #69350F; /* 輸出區文字顏色 */
-        }
-        iframe {
-            width: 100%; /* 讓 iframe 寬度填滿父元素 */
-            height: 100%; /* 讓 iframe 高度填滿父元素 */
-            border: none; /* 移除 iframe 的邊框 */
-        }
-        #buttons {
-            display: flex;
-            justify-content: center;
-            padding: 10px;
-            background-color: #9cf6c7; /* 透明背景的按鈕條 */
-        }
-        button {
-            margin: 0 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 20px; /* 圓角按鈕 */
-            border: none;
-            background-color: #69350F; /* 修改按鈕背景顏色 */
-            color:  #9cf6c7; /* 修改按鈕文字顏色 */
-            cursor: pointer;
-            transition: background-color 0.3s; /* 平滑過渡效果 */
+
+        canvas {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <textarea id="editor" placeholder="在此輸入程式碼..."></textarea>
-        <div id="output"></div>
-    </div>
-    <div id="buttons">
-        <button id="run">運行</button>
-        <button id="stop">停止</button>
-        <button id="download">下載程式碼</button> <!-- 新增的下載按鈕 -->
-        <button id="upload">上傳檔案</button> <!-- 新增的上傳按鈕 -->
-        <input type="file" id="fileInput" accept=".html" style="display: none;"> <!-- 隱藏的檔案選擇器 -->
-    </div>
+    <canvas id="matrix"></canvas>
 
     <script>
-        const runButton = document.getElementById('run');
-        const stopButton = document.getElementById('stop');
-        const downloadButton = document.getElementById('download');
-        const uploadButton = document.getElementById('upload');
-        const fileInput = document.getElementById('fileInput');
-        const output = document.getElementById('output');
-        const editor = document.getElementById('editor');
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
 
-        runButton.addEventListener('click', () => {
-            const code = editor.value;
-            try {
-                // 清空先前的結果
-                output.innerHTML = '';
-                // 使用 iframe 執行程式碼
-                const iframe = document.createElement('iframe');
-                output.appendChild(iframe);
-                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                iframeDoc.open();
-                iframeDoc.write(code);
-                iframeDoc.close();
-            } catch (error) {
-                output.innerHTML = '錯誤：' + error.message;
+        function initializeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        initializeCanvas();
+
+        const fontSize = 16;
+        let columns = Math.floor(canvas.width / fontSize);
+
+        const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZぁぃぅぇぉかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄞㄟㄠㄡㄢㄣㄤㄥㄦ';
+        let drops = Array(columns).fill(0).map(() => ({
+            position: Math.floor(Math.random() * canvas.height / fontSize),
+            direction: Math.random() > 0.5 ? 1 : -1
+        }));
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = `${fontSize}px monospace`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters[Math.floor(Math.random() * characters.length)];
+                const x = i * fontSize;
+                const y = drops[i].position * fontSize;
+                ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 50%)`; // Random rainbow colors
+                ctx.fillText(text, x, y);
+
+                if ((y > canvas.height || y < 0) && Math.random() > 0.975) {
+                    drops[i].direction *= -1; // Reverse direction when out of bounds
+                }
+
+                drops[i].position += drops[i].direction;
             }
-        });
+        }
 
-        stopButton.addEventListener('click', () => {
-            output.innerHTML = '執行已停止';
-        });
+        setInterval(draw, 50);
 
-        downloadButton.addEventListener('click', () => {
-            const code = editor.value;
-            const blob = new Blob([code], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'code.html'; // 設定下載的檔案名稱
-            document.body.appendChild(a);
-            a.click(); // 模擬點擊下載
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url); // 釋放 Blob URL
-        });
-
-        uploadButton.addEventListener('click', () => {
-            fileInput.click(); // 觸發檔案選擇器
-        });
-
-        fileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    editor.value = e.target.result; // 將檔案內容顯示到編輯區
-                };
-                reader.readAsText(file); // 讀取檔案內容
-            }
+        window.addEventListener('resize', () => {
+            initializeCanvas();
+            columns = Math.floor(canvas.width / fontSize);
+            drops = Array(columns).fill(0).map(() => ({
+                position: Math.floor(Math.random() * canvas.height / fontSize),
+                direction: Math.random() > 0.5 ? 1 : -1
+            }));
         });
     </script>
 </body>
