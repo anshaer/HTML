@@ -35,7 +35,7 @@
         const fontSize = 16;
         let columns = Math.floor(canvas.width / fontSize);
 
-        const characters = '0123456789ABCD十六月好可愛想嗷青椒披曼大推EFGHIJKLMNOPQRSTUVWXYZぁぃぅぇぉかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄞㄟㄠㄡㄢㄣㄤㄥㄦ';
+        const characters = '0123456789ABCD十六月好可愛想嗷青椒披曼大推应该返去訓觉啦尼皮紅不是磚牆朔攻望受月半EFGHIJKLMNOPQRSTUVWXYZぁぃぅぇぉかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄞㄟㄠㄡㄢㄣㄤㄥㄦ';
         let drops = Array(columns).fill(0).map(() => ({
             position: Math.floor(Math.random() * canvas.height / fontSize),
             direction: Math.random() > 0.5 ? 1 : -1
