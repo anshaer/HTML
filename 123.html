@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Links</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #f6d365, #fda085);
+            overflow: hidden;
+            position: relative;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+            color: #333;
+        }
+
+        header input[type="text"] {
+            padding: 5px 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .link-id {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .link-url {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .link-url:hover {
+            text-decoration: underline;
+        }
+
+        .note {
+            font-style: italic;
+            color: #888;
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal {
+            background: #fff;
+            width: 85%;
+            height: 85%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff5f57;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Random Links</h1>
+        <input type="text" placeholder="Search..." id="search-bar">
+    </header>
+
+    <ul id="link-list">
+        <!-- Links will be dynamically inserted here -->
+    </ul>
+
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <iframe id="modal-iframe" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Define an array of links with their respective IDs and notes
+        const links = [
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+            { id: 'link1', url: 'https://example.com', note: 'This is example site 1' },
+            { id: 'link2', url: 'https://example.org', note: 'This is example site 2' },
+            { id: 'link3', url: 'https://example.net', note: 'This is example site 3' },
+            { id: 'link4', url: 'https://example.edu', note: 'This is example site 4' },
+
+            { id: 'link5', url: 'https://example.co', note: 'This is example site 5' }
+        ];
+
+        // Shuffle the links array randomly
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        shuffle(links);
+
+        // Generate and display the links dynamically
+        const linkList = document.getElementById('link-list');
+
+        links.forEach(link => {
+            const listItem = document.createElement('li');
+
+            // Generate a random light color
+            const randomColor = `hsl(${Math.floor(Math.random() * 360)}, 70%, 90%)`;
+            listItem.style.backgroundColor = randomColor;
+
+            listItem.innerHTML = `
+                <span class="link-id">ID: ${link.id}</span><br>
+                <a href="#" class="link-url" onclick="openInModal('${link.url}'); return false;">${link.url}</a><br>
+                <span class="note">Note: ${link.note}</span>
+            `;
+
+            linkList.appendChild(listItem);
+        });
+
+        // Function to open links in a modal
+        function openInModal(url) {
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalIframe = document.getElementById('modal-iframe');
+            modalIframe.src = url;
+            modalOverlay.style.display = 'flex';
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalIframe = document.getElementById('modal-iframe');
+            modalIframe.src = '';
+            modalOverlay.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
