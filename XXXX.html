@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>網頁連結示例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #f0f8ff, #e6f7ff, #ffe6e6, #fffacd, #e6ffe6);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(45deg, #f4f4f4, #e8e8e8, #dcdcdc, #f4f4f4);
+            background-size: 400% 400%;
+            animation: gradientHeader 15s ease infinite;
+            border-bottom: 1px solid #ddd;
+        }
+        @keyframes gradientHeader {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .search-box {
+            position: relative;
+        }
+        .search-box input {
+            padding: 5px;
+            font-size: 16px;
+        }
+        .link-container {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 12px; /* 修圓角 */
+            display: inline-block;
+            width: 30%;
+            cursor: pointer;
+            animation: gradientWarmBG 10s ease infinite;
+        }
+        @keyframes gradientWarmBG {
+            0% { background-color: var(--start-color); }
+            50% { background-color: var(--end-color); }
+            100% { background-color: var(--start-color); }
+        }
+        .link-container:hover {
+            background-color: #e0f7ff;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .overlay.active {
+            display: flex;
+        }
+        .tile {
+            width: 85%;
+            height: 85%;
+            border-radius: 12px; /* 浮磚圓角 */
+            padding: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .tile iframe {
+            border-radius: 12px; /* 浮磚內嵌網頁圓角 */
+            border: none;
+        }
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 50px;
+            cursor: pointer;
+            color: #fa0202;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-title">網頁連結示例</div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="搜尋...">
+        </div>
+    </div>
+
+    <div id="links"></div>
+
+    <div id="overlay" class="overlay">
+        <div class="tile">
+            <span class="close-btn" onclick="closeTile()">&times;</span>
+            <iframe id="tile-frame" src="" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+
+    <script>
+        const linksData = [
+            { id: '123', url: 'https://www.anshaer.com/Pagination/%E5%B7%A5%E5%85%B7/%E8%9E%A2%E5%85%89%E6%96%87%E5%AD%97/code.html', note: '備註1' },
+            { id: '蘋果', url: 'https://example.com/2', note: '備註2' },
+            { id: '456', url: 'https://example.com/3', note: '備註3' }
+        ];
+
+        const colors = [
+            ['#FFB347', '#FFD700'],
+            ['#FF6347', '#FF4500'],
+            ['#FFB6C1', '#FF69B4'],
+            ['#87CEFA', '#1E90FF'],
+            ['#98FB98', '#00FA9A'],
+            ['#D8BFD8', '#DDA0DD']
+        ];
+
+        function randomizeOrder(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+        }
+
+        function setRandomWarmColor(excludeColors) {
+            let colorPair;
+            do {
+                colorPair = colors[Math.floor(Math.random() * colors.length)];
+            } while (excludeColors.includes(colorPair[0]) || excludeColors.includes(colorPair[1]));
+            return colorPair;
+        }
+
+        function openInFloatingTile(url) {
+            const overlay = document.getElementById('overlay');
+            const iframe = document.getElementById('tile-frame');
+            iframe.src = url;
+            overlay.classList.add('active');
+        }
+
+        function closeTile() {
+            const overlay = document.getElementById('overlay');
+            overlay.classList.remove('active');
+            document.getElementById('tile-frame').src = '';
+        }
+
+        function createLinks() {
+            randomizeOrder(linksData);
+            const container = document.getElementById('links');
+            let previousColor = '';
+            let previousRowColors = [];
+            linksData.forEach((link, index) => {
+                const div = document.createElement('div');
+                div.className = 'link-container';
+                const colorPair = setRandomWarmColor([previousColor, ...previousRowColors]);
+                div.style.setProperty('--start-color', colorPair[0]);
+                div.style.setProperty('--end-color', colorPair[1]);
+                previousColor = colorPair[0];
+                previousRowColors[index % 3] = colorPair[0];
+                div.onclick = () => openInFloatingTile(link.url);
+                
+                const idDiv = document.createElement('div');
+                idDiv.textContent = link.id;
+                
+                const urlDiv = document.createElement('div');
+                urlDiv.textContent = link.url;
+                
+                const noteDiv = document.createElement('div');
+                noteDiv.textContent = link.note;
+                
+                div.appendChild(idDiv);
+                div.appendChild(urlDiv);
+                div.appendChild(noteDiv);
+                container.appendChild(div);
+            });
+        }
+
+        function filterLinks() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const linkContainers = document.getElementsByClassName('link-container');
+            
+            Array.from(linkContainers).forEach(container => {
+                const id = container.children[0].textContent.toLowerCase();
+                const url = container.children[1].textContent.toLowerCase();
+                const note = container.children[2].textContent.toLowerCase();
+                
+                if (id.includes(searchValue) || url.includes(searchValue) || note.includes(searchValue)) {
+                    container.style.display = '';
+                } else {
+                    container.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', filterLinks);
+
+        document.getElementById('overlay').onclick = function(event) {
+            if (event.target === this) {
+                closeTile();
+            }
+        };
+
+        createLinks();
+    </script>
+</body>
+</html>
