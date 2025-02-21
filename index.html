@@ -1,77 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Code Rain</title>
-    <style>
-        body {
-            margin: 0;
-            background: black;
-            overflow: hidden;
-            color: white;
-            font-family: monospace;
-        }
+    <title>Redirecting...</title>
+    <script>
+        const currentHost = window.location.hostname;
+        const subdomain = currentHost.split(".")[0];
 
-        canvas {
-            display: block;
+        if (!subdomain) {
+            document.write("未找到跳转目标，请检查网址。");
+        } else {
+            const firstChar = subdomain[0]; // 获取子域名前缀
+            const jsonFile = `redirects/${firstChar}.json`; // 选择对应 JSON 文件
+
+            fetch(jsonFile)
+                .then(response => response.json())
+                .then(redirects => {
+                    if (redirects[subdomain]) {
+                        window.location.href = redirects[subdomain];
+                    } else {
+                        document.write("未找到跳转目标，请检查网址。");
+                    }
+                })
+                .catch(error => {
+                    console.error("加载跳转数据失败：", error);
+                    document.write("加载跳转数据失败，请稍后再试。");
+                });
         }
-    </style>
+    </script>
 </head>
 <body>
-    <canvas id="matrix"></canvas>
-
-    <script>
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
-
-        function initializeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        initializeCanvas();
-
-        const fontSize = 16;
-        let columns = Math.floor(canvas.width / fontSize);
-
-        const characters = '0123456789ABCD十六月好可愛想嗷青椒披曼大推应该返去訓觉啦尼皮紅不是磚牆朔攻望受月半EFGHIJKLMNOPQRSTUVWXYZぁぃぅぇぉかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄞㄟㄠㄡㄢㄣㄤㄥㄦ';
-        let drops = Array(columns).fill(0).map(() => ({
-            position: Math.floor(Math.random() * canvas.height / fontSize),
-            direction: Math.random() > 0.5 ? 1 : -1
-        }));
-
-        function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.font = `${fontSize}px monospace`;
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = characters[Math.floor(Math.random() * characters.length)];
-                const x = i * fontSize;
-                const y = drops[i].position * fontSize;
-                ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 50%)`; // Random rainbow colors
-                ctx.fillText(text, x, y);
-
-                if ((y > canvas.height || y < 0) && Math.random() > 0.975) {
-                    drops[i].direction *= -1; // Reverse direction when out of bounds
-                }
-
-                drops[i].position += drops[i].direction;
-            }
-        }
-
-        setInterval(draw, 50);
-
-        window.addEventListener('resize', () => {
-            initializeCanvas();
-            columns = Math.floor(canvas.width / fontSize);
-            drops = Array(columns).fill(0).map(() => ({
-                position: Math.floor(Math.random() * canvas.height / fontSize),
-                direction: Math.random() > 0.5 ? 1 : -1
-            }));
-        });
-    </script>
+    <noscript>请启用 JavaScript 以完成跳转。</noscript>
 </body>
 </html>
