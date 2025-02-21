@@ -1,35 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0;url=https://x.com/Anshaer_TW_TYC">
     <title>Redirecting...</title>
-    <script>
-        const currentHost = window.location.hostname;
-        const subdomain = currentHost.split(".")[0];
-
-        if (!subdomain) {
-            document.write("未找到跳转目标，请检查网址。");
-        } else {
-            const firstChar = subdomain[0]; // 获取子域名前缀
-            const jsonFile = `redirects/${firstChar}.json`; // 选择对应 JSON 文件
-
-            fetch(jsonFile)
-                .then(response => response.json())
-                .then(redirects => {
-                    if (redirects[subdomain]) {
-                        window.location.href = redirects[subdomain];
-                    } else {
-                        document.write("未找到跳转目标，请检查网址。");
-                    }
-                })
-                .catch(error => {
-                    console.error("加载跳转数据失败：", error);
-                    document.write("加载跳转数据失败，请稍后再试。");
-                });
-        }
-    </script>
 </head>
 <body>
-    <noscript>请启用 JavaScript 以完成跳转。</noscript>
+    <p>如果沒有自動跳轉，請點擊 <a href="https://目標網址.com">這裡</a>。</p>
 </body>
 </html>
