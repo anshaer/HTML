@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0;url=https://x.com/Vaswawa">
-    <title>Redirecting...</title>
-</head>
-<body>
-    <p>如果沒有自動跳轉，請點擊 <a href="https://目標網址.com">這裡</a>。</p>
-</body>
-</html>
+<script>
+    const redirects = {
+        "a.推.tw": "https://x.com/Vaswawa",
+        "b.推.tw": "https://x.com/firekiss0418",
+        "c.推.tw": "https://x.com/Neboskey",
+        "d.推.tw": "https://x.com/YakushijiOAO"
+    };
+    const host = window.location.hostname.toLowerCase();
+    if (redirects[host]) {
+        window.location.href = redirects[host];
+    } else {
+        document.write("此子網域未設定轉址");
+    }
+</script>
