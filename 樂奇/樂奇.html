@@ -10,11 +10,28 @@
         text-align: center;
         margin: 0;
         padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    height: 100vh;
+background: url('https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:paucxutsntqds2do2jfjekht/bafkreic267o2spuh76yo7ujjhotwnijmpykodqnqsl5fydj4x3zgbwhy7a@jpeg') center/cover no-repeat; 
     }
-    .container {
-        background-color: #ffffff;
-        background-image: url('https://yt3.googleusercontent.com/8hFpUl_KBW1sXxR0eBhWG2KWVPqYuMeMfgfuiz0LCj5Wlro1TqDT2Ml06cwHyNOqGARCRkeJaA=w2120-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj'); background-size: cover; background-position: center;
+
+    @keyframes colorChange {
+        0% { color: #ff0000; }
+        50% { color: #ffe95c; }
+        100% { color: #ffad5c; }
     }
+
+    .animated-text {
+        font-size: 2rem;
+        font-weight: bold;
+        animation: colorChange 3s infinite alternate;
+    }
+
+    
+
     .avatar {
         width: 120px;
         height: 120px;
@@ -22,50 +39,64 @@
         object-fit: cover;
         margin-bottom: 20px;
     }
-    .id {
+
+    .id, .nickname {
         font-size: 2rem;
         font-weight: bold;
-        color: #ffff00;
-        margin-bottom: 10px;
+        animation: colorChange 3s infinite alternate; /* 套用動畫 */
     }
-    .nickname, .language, .details {
+
+    .language, .details {
         font-size: 16px;
-        color: #ffff00;
+         animation: colorChange 3s infinite alternate;
         margin-bottom: 20px;
     }
+
     .links a {
         display: inline-block;
         margin: 10px;
     }
- .gallery img, .gallery video {
+
+    .gallery img, .gallery video {
         width: 300px;
-        height: auto; /* 保持比例 */
+        height: auto;
         margin: 10px;
-        display:inline-block;
+        display: inline-block;
     }
+
     .ownership, .issue-report {
         margin-top: 20px;
         font-size: 14px;
-        color: #ffff00;
+         animation: colorChange 3s infinite alternate;
     }
-
 </style>
 </head>
 <body>
 <div class="container">
-    <img src="https://x.com/Ruckystar67/photo" alt="頭像" class="avatar">
+    <img src="https://pbs.twimg.com/profile_images/1896446335320276992/Ltyd1rey_400x400.jpg" alt="頭像" class="avatar">
     <h1 class="id">Rucky樂奇 ch. 樂奇★幸運星</h1>
     <div class="nickname">🌠新人Vtuber◆DD避難所合作夥伴🌟</div>
     <div class="language"> #台V #新人Vtuber #Rucky樂奇</div>
-    <div class="details">我是✨Rucky樂奇✨
-千錘百鍊後復活重生的科技人造人💎
-受幸運星加護的小小追夢家🌠
-搞怪又愛鬧、中文日文雙通的個人勢台灣Vtuber🤟😉
-以唱歌、創作、學習為主的多元小農創作者✨
-每周的流星直播間裡，會有哪些歡樂的故事呢？
+    <div class="details">我是✨Rucky樂奇✨</br>
+千錘百鍊後復活重生的科技人造人💎</br>
+受幸運星加護的小小追夢家🌠</br>
+搞怪又愛鬧、中文日文雙通的個人勢台灣Vtuber🤟😉</br>
+以唱歌、創作、學習為主的多元小農創作者✨</br>
+每周的流星直播間裡，會有哪些歡樂的故事呢？</br>
 一起加入星耀原石的行列裡與樂奇一同閃耀飛行吧✨（＜ゝω・）ノ</div>
-    <div class="links"><a href="https://www.youtube.com/@ruckystar67" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/youtube/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://x.com/Ruckystar67" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/twitter/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://bsky.app/profile/ruckystar67.bsky.social" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/bluesky/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://www.twitch.tv/ruckystar67" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/twitch/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://payment.ecpay.com.tw/Broadcaster/Donate/A03A9DC82CA363A3832A4DA90131783D" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/card/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://marshmallow-qa.com/wh8fmmz8nd1r1k5?t=leXJxO&utm_medium=url_text&utm_source=promotion" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/marshmallows/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://www.plurk.com/Ruckystar67" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/webpage/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://x.com/DDrefuge" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/twitter/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://t.co/BXjZXgXi7q" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/discord/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a></div>
-    <div class="gallery"><img src="https://www.youtube.com/watch?v=WOSBbemMyyk"  style="width:300px;height:auto;margin:10px;display:inline-block;"><img src="https://www.youtube.com/watch?v=qgvCb3SARRA"  style="width:300px;height:auto;margin:10px;display:inline-block;"><img src="https://www.youtube.com/watch?v=Y4qf0smBhhE"  style="width:300px;height:auto;margin:10px;display:inline-block;"><img src="https://www.youtube.com/watch?v=UaoUozNVv0g&t"  style="width:300px;height:auto;margin:10px;display:inline-block;"><img src=""  style="width:300px;height:auto;margin:10px;display:inline-block;"></div>
+    <div class="links"><a href="https://www.youtube.com/@ruckystar67" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/youtube/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://x.com/Ruckystar67" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/twitter/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://bsky.app/profile/ruckystar67.bsky.social" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/bluesky/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://www.twitch.tv/ruckystar67" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/twitch/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://payment.ecpay.com.tw/Broadcaster/Donate/A03A9DC82CA363A3832A4DA90131783D" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/card/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://marshmallow-qa.com/wh8fmmz8nd1r1k5?t=leXJxO&utm_medium=url_text&utm_source=promotion" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/marshmallows/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://www.plurk.com/Ruckystar67" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/product-hunt-brands.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://x.com/DDrefuge" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/twitter/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a><a href="https://t.co/BXjZXgXi7q" target="_blank"><img src="https://anshaer.github.io/ICON/ICON/discord/04.svg" alt="連結圖片" style="width:80px;height:80px;margin:5px;border-radius:8px;"></a></div>
+
+
+<div class="gallery">
+<a href="https://www.youtube.com/watch?v=WOSBbemMyyk" target="_blank">
+<img src="https://i.ytimg.com/an_webp/WOSBbemMyyk/mqdefault_6s.webp?du=3000&sqp=CJuF2b4G&rs=AOn4CLCPwfr9QW2MWafLsZ9rOdOlcOehhQ"  style="width:300px;height:auto;margin:10px;display:inline-block;"></a>
+<a href="https://www.youtube.com/watch?v=UaoUozNVv0g&t" target="_blank">
+<img src="https://i.ytimg.com/an_webp/UaoUozNVv0g/mqdefault_6s.webp?du=3000&sqp=CIiI2b4G&rs=AOn4CLBcs3frcTC5Qu8_kVJQtibt-RTdxg"  style="width:300px;height:auto;margin:10px;display:inline-block;">
+<a href="https://www.youtube.com/watch?v=Y4qf0smBhhE" target="_blank">
+<img src="https://i.ytimg.com/an_webp/Y4qf0smBhhE/mqdefault_6s.webp?du=3000&sqp=CIr-2L4G&rs=AOn4CLBtteJ7JsaBuk3yIXyoTOZmK3S8QQ"  style="width:300px;height:auto;margin:10px;display:inline-block;">
+<a href="https://www.youtube.com/watch?v=qgvCb3SARRA" target="_blank">
+<img src="https://i.ytimg.com/an_webp/qgvCb3SARRA/mqdefault_6s.webp?du=3000&sqp=CLDn2L4G&rs=AOn4CLAJRjEYa0A-2z881dX0jYqrLZvkSw"  style="width:300px;height:auto;margin:10px;display:inline-block;">
+</div>
     <div class="ownership"></div>
     <div class="issue-report"></div>
 </div>
