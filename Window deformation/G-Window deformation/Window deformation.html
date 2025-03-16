@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS 視窗擷取 + 透視變形</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <button id="startButton">選擇擷取視窗</button>
+    <div class="controls">
+        <div class="control-group">
+            <label>Rotate Y:</label>
+            <input type="range" id="rotateY" min="-45" max="45" value="-10">
+            <span id="rotateYValue">-10°</span>
+        </div>
+        <div class="control-group">
+            <label>Rotate X:</label>
+            <input type="range" id="rotateX" min="-45" max="45" value="-10">
+            <span id="rotateXValue">-10°</span>
+        </div>
+        <div class="control-group">
+            <label>Scale:</label>
+            <input type="range" id="scale" min="0.5" max="2" step="0.1" value="1.1">
+            <span id="scaleValue">1.1</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="screen">
+            <video id="screenVideo" autoplay></video>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
